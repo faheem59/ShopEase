@@ -1,26 +1,33 @@
-import { useEffect, useState} from "react";
-import axios from "axios"
-import { Product } from "../utils/types";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { Product } from "../utils/types"; 
 
+const Apidata = () => {
+    const [products, setProducts] = useState<Product[]>([]); 
+    const [loading, setLoading] = useState(true); 
+    const [error, setError] = useState<string | null>(null); 
 
-const Apidata = ()=>{
-  const [products, setProducts] = useState<Product[]>([]);   
- 
-    const fetchProductData = async()=>{
-        try{
+    const fetchProductData = async () => {
+        try {
             const apiurl = "https://fakestoreapi.com/products";
-            const response = await axios.get(apiurl);
+            const response = await axios.get<Product[]>(apiurl);
             setProducts(response.data);
-        }catch(e){
-           console.log(e);
+            setLoading(false);
+        } catch (error) {
+            console.error("Error fetching product data:", error);
+            setError("Failed to fetch product data. Please try again later."); 
+            setLoading(false); 
         }
-    }
+    };
+    useEffect(() => {
+        fetchProductData(); 
+    }, []);
 
-    useEffect(()=>{
-    fetchProductData();
-    },[])
-    return{
-        products
-    }
-}
+    return {
+        products,
+        loading,
+        error
+    };
+};
+
 export default Apidata;

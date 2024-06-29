@@ -7,8 +7,6 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { ProductCardProps } from "../../utils/types";
 
-
-
 const ProductCard: React.FC<ProductCardProps> = ({ product, isInCart, onAddToCart, onRemoveFromCart }) => {
     return (
         <>

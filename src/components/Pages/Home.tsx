@@ -1,26 +1,26 @@
-// Home.tsx
-
-import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Apidata from "../../constants/ApiData";
 import { useCart } from "../../utils/CartContext";
 import ProductCard from "../commonCardDisplay/ProductCard";
 import Loader from "../commonLoader/Loader";
+import { ToastContainer, toast } from "react-toastify";
 
-const Home: React.FC = () => {
-    const { products } = Apidata();
-    const { addToCart, removeFromCart, isInCart } = useCart();
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-    }, []);
+const Home = () => {
+    const { products, loading, error } = Apidata();
+    const { addToCart, removeFromCart, isInCart } = useCart();  
+    if (error) {
+        if (error) {
+            toast.error(`Error: ${error}`, {
+                position: "top-center",
+                autoClose: 3000, 
+            });
+        } 
+    }   
 
     return (
         <>
+            <ToastContainer />
             <Typography variant="h2" sx={{ textAlign: 'center', margin: '20px 0' }}>
                 Product List
             </Typography>
