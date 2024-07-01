@@ -14,11 +14,11 @@ import localforage from "localforage";
 const CartContext = createContext<CartContextType | null>(null);
 
 export const useCart = () => {
-    const context = useContext(CartContext);
-    if (!context) {
+    const contextItem = useContext(CartContext);
+    if (!contextItem) {
         throw new Error("useCart must be used within a CartProvider");
     }
-    return context;
+    return contextItem;
 };
 
 interface CartProviderProps {
